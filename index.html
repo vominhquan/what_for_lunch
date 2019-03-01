@@ -9,26 +9,29 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet" />
-  <link href="app.css" rel="stylesheet">
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      // $.get('grammar.txt', function(data) {
-      //   $('#grammar').val(data);
-      // })
-      $('#grammar').val(data)
-      $('#input_text').val('qua thương cô nàng khéo nướng bánh-bông-lan')
+      data = `Bún chả Hà Nội
+Phá lấu - Bột chiên - mì - nui
+Phở Hiền
+Cơm chay
+Bún thịt nướng
+Bánh canh - Bún bò`
+      $('#options').val(data)
       $('#submit').click(function() {
-        var grammar_val = $('#grammar').val()
-        var input_text_val = $('#input_text').val()
-        input_text_val = input_text_val.trim()
-        do_parse(grammar_val, input_text_val);
-        render_tree(grammar_val, input_text_val, 'tree_output')
+        var options_val = $('#options').val();
+        options_val = options_val.split('\n');
+        console.log(options_val)
+
+        var item = options_val[Math.floor(Math.random()*options_val.length)];
+        console.log(item);
+        $('#result').text(item);
         
-        $('html, body').animate({
-            scrollTop: $("#cky_output").offset().top
-        }, 1000);
+        // $('html, body').animate({
+        //     scrollTop: $("#cky_output").offset().top
+        // }, 1000);
       })
     })
   </script>
@@ -43,7 +46,7 @@
       <div class="row flex-nowrap justify-content-between align-items-center">
 
         <div class="col text-center">
-          <a class="blog-header-logo text-dark" href="#">CKY Parser</a>
+          <a class="blog-header-logo text-dark" href="#">Choose where to go</a>
         </div>
       </div>
     </header>
@@ -53,12 +56,11 @@
       <div class="col">
         <div class="card flex-md-row mb-4 shadow-sm">
           <div class="card-body">
-            <strong class="d-inline-block mb-2 text-primary">Gammar (CNF)</strong>
+            <strong class="d-inline-block mb-2 text-primary">Options</strong>
             <div class="form-group">
-              <textarea name="grammar" id="grammar" class="form-control" rows="10" placeholder="e.g. S -> NP VP"
+              <textarea name="options" id="options" class="form-control" rows="10" placeholder=""
                 aria-describedby="helpGrammar">
               </textarea>
-              <small id="helpGrammar" class="text-muted">CNF Format</small>
             </div>
           </div>
         </div>
@@ -67,29 +69,15 @@
       <div class="col">
         <div class="card flex-md-row mb-4 shadow-sm">
           <div class="card-body">
-            <strong class="d-inline-block mb-2 text-primary">Input text</strong>
             <div class="form-group">
-              <input type="text" name="input_text" id="input_text" class="form-control" placeholder="" aria-describedby="helpInput" value="">
               <small id="helpInput" class="text-muted"></small>
+              <button type="submit" class="btn btn-primary btn-outline btn-lg btn-block" id="submit">Go for it</button>
             </div>
-
-            <button type="submit" class="btn btn-primary btn-outline btn-lg btn-block" id="submit">Start</button>
+            <h2 id="result"></h2>
           </div>
         </div>
       </div>
 
-    </div>
-
-    <div class="row mt-4">
-      <div class="col">
-        <div id="cky_output" style="display:none">
-          <!-- <table class="table" id="columnsCount" width="3%" height="100%" bgcolor="CC99CC" align="left"></table> -->
-          <table class="table" id="tsentence"></table>
-          <!-- <table class="table " id="rowsCount" width="97%" height="3%" bgcolor="CC99CC"></table> -->
-          <table class="table table-bordered" id="tchart" width="97%" height="90%"></table>
-
-        </div>
-      </div>
     </div>
 
     <div class="row mt-4">
