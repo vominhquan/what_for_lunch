@@ -2,7 +2,8 @@
 We are in a struggle to choose what to have for our lunch and this simple project will choose one for us.
 
 ## Usage
-Just go for it
+1. Go to https://vominhquan.github.io/what_for_lunch/
+2. Just Go for it
 
 ## What is next?
 * Show history, avoid cheaters (I'm talking about you, Nhut).
