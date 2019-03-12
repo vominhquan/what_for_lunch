@@ -28,12 +28,45 @@ Khám phá quán mới`
 
         var item = options_val[Math.floor(Math.random()*options_val.length)];
         console.log(item);
+
         $('#result').text(item);
+
+        storeHistory(item);
+        showResult();
+
         
         // $('html, body').animate({
         //     scrollTop: $("#cky_output").offset().top
         // }, 1000);
       })
+
+      function showResult(){
+        history_ = JSON.parse(localStorage.history);
+        today = new Date();
+        todayResult = history_.filter(item => new Date(item['time']).setHours(0,0,0,0) == today.setHours(0,0,0,0));
+
+        $('#results').empty();
+        $('#result_div').show();
+        for (var i = todayResult.length - 1; i >= 0; i--) {
+          $('#results').append('<li class="list-group-item">' + todayResult[i]['item'] + '</li>')
+        }
+        
+      }
+
+      function storeHistory(item) {
+        if(typeof(Storage) !== "undefined") {
+          newItem = {'item': item, 'time': new Date()}
+          if (localStorage.history) {
+            // Add history
+            current = JSON.parse(localStorage.history);
+            current.push(newItem);
+            localStorage.history = JSON.stringify(current)
+          } else {
+            localStorage.history = JSON.stringify(Array(newItem));
+          }
+        }
+      }
+
     })
   </script>
 
@@ -74,6 +107,10 @@ Khám phá quán mới`
               <button type="submit" class="btn btn-primary btn-outline btn-lg btn-block" id="submit">Go for it</button>
             </div>
             <h2 id="result"></h2>
+            <div id="result_div" style="overflow: scroll;max-height: 192px;display: none;">
+              <ul id="results" class="list-group"></ul>
+            </div>
+            
           </div>
         </div>
       </div>
